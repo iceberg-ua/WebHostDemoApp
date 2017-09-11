@@ -10,11 +10,15 @@ using System.Windows.Forms;
 
 namespace WebHostDemo
 {
-    public partial class Form1 : Form
+    public partial class WebHostDemoForm : Form
     {
-        public Form1()
+        public WebHostDemoForm()
         {
             InitializeComponent();
+
+            WebHostControl webHostCtrl = new WebHostControl();
+            Controls.Add(webHostCtrl);
+            webHostCtrl.Visible = true;
         }
     }
 }
