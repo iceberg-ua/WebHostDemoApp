@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link type="text/css" href="_styleFile" rel="stylesheet" />
+    <script type="text/javascript" src="_d3Script"></script>
+<!--    <link type="text/css" href="simplemde.min.css" rel="stylesheet" />
+    <script type="text/javascript" src="simplemde.min.js"></script>-->
+</head>
+<body>
+    Editor:
+    <textarea id="editor" style="display: none;">Some text here</textarea>
+    <script>
+        new SimpleMDE({
+            element: document.getElementById("editor"),
+            spellChecker: false,
+            toolbar: ["bold", "italic", "heading", "|", "fullscreen"],
+        });
+    </script>
+</body>
+</html>

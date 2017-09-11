@@ -4,9 +4,17 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
-    <script>&3dScript</script>
+    <link type="text/css" href="_styleFile" rel="stylesheet" />
+    <script type="text/javascript" src="_d3Script"></script>
 </head>
 <body>
     <h1>It works!</h1>
+    <button type="button" onclick="addTask()">Add Task</button>
+    <button type="button" onclick="removeTask()">Remove Task</button>
+    <button type="button" onclick="changeTimeDomain('1hr')">1 HR</button>
+    <button type="button" onclick="changeTimeDomain('3hr')">3 HR</button>
+    <button type="button" onclick="changeTimeDomain('6hr')">6 HR</button>
+    <button type="button" onclick="changeTimeDomain('1day')">1 DAY</button>
+    <button type="button" onclick="changeTimeDomain('1week')">1 WEEK</button>
 </body>
 </html>
