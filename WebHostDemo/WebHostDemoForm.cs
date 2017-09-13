@@ -12,13 +12,33 @@ namespace WebHostDemo
 {
     public partial class WebHostDemoForm : Form
     {
+        WebHostControl _webHostCtrl = new WebHostControl();
+
         public WebHostDemoForm()
         {
             InitializeComponent();
 
-            WebHostControl webHostCtrl = new WebHostControl();
-            Controls.Add(webHostCtrl);
-            webHostCtrl.Visible = true;
+            Controls.Add(_webHostCtrl);
+            _webHostCtrl.Visible = true;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
+            watch.Start();
+            _webHostCtrl.GetWebControlImage();
+            watch.Stop();
+
+            button1.Text = $"Image ({watch.ElapsedMilliseconds})";
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            _webHostCtrl.Visible = !_webHostCtrl.Visible;
+            if (_webHostCtrl.Visible)
+                button2.Text = "Hide";
+            else
+                button2.Text = "Show";
         }
     }
 }

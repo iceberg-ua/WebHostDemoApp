@@ -2,12 +2,11 @@
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="utf-8" />
-    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
     <link type="text/css" href="_styleFile" rel="stylesheet" />
     <script type="text/javascript" src="_d3Script"></script>
-<!--    <link type="text/css" href="simplemde.min.css" rel="stylesheet" />
-    <script type="text/javascript" src="simplemde.min.js"></script>-->
+    <link type="text/css" href="simplemde.min.css" rel="stylesheet" />
+    <script type="text/javascript" src="simplemde.min.js"></script>
 </head>
 <body>
     Editor:
@@ -16,7 +15,9 @@
         new SimpleMDE({
             element: document.getElementById("editor"),
             spellChecker: false,
-            toolbar: ["bold", "italic", "heading", "|", "preview"],
+            toolbar: ["bold", "italic", "heading", "strikethrough", "quote", "|",
+                "unordered-list", "ordered-list", "|",
+                "link", "image", "table", "|", "preview"],
         });
     </script>
 </body>
