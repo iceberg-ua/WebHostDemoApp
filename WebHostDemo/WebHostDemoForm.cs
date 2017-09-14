@@ -40,5 +40,15 @@ namespace WebHostDemo
             else
                 button2.Text = "Show";
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            _webHostCtrl.SetEditorText(textBox1.Text);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = _webHostCtrl.GetEditorText();
+        }
     }
 }

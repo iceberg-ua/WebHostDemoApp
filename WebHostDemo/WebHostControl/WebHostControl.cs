@@ -118,6 +118,70 @@ namespace WebHostDemo
 
         }
 
+        public void SetEditorText(string text)
+        {
+            //var divs = Document.GetElementsByTagName("div");
+
+            //foreach (HtmlElement div in divs)
+            //{
+            //    if (div.GetAttribute("className") == "CodeMirror-code")
+            //    {
+            //        div.InnerText = text;
+            //    }
+            //}
+
+            //object data = Clipboard.GetData("Text");
+            //Clipboard.SetData("Text", text);
+
+            //IHTMLDocument2 doc = (mshtml.IHTMLDocument2)Document.DomDocument;
+            //doc.execCommand("Paste", false, null);
+
+            //Clipboard.SetData("Text", data);
+
+            Document.InvokeScript("setValue", new object[] { text });
+        }
+
+        public string GetEditorText()
+        {
+            var value = Document.InvokeScript("getValue");
+
+            return (value is string) ? (string)value : string.Empty;
+
+            //var divs = Document.GetElementsByTagName("div");
+
+            //foreach (HtmlElement div in divs)
+            //{
+            //    if(div.GetAttribute("className") == "CodeMirror-code")
+            //    {
+            //        return div.InnerText;
+            //    }
+            //}
+
+            //var element = Document.GetElementsByTagName("CodeMirror-code");
+            //mshtml.IHTMLDocument2 doc = (mshtml.IHTMLDocument2)Document.DomDocument;
+
+            //var selection = doc.selection.createRange().text;
+
+            //if (selection != null)
+            //{
+            //    IHTMLTxtRange range = selection.createRange() as IHTMLTxtRange;
+            //}
+
+            //doc.execCommand("SelectAll", false, null);
+
+            //var allSelection = doc.selection;
+
+            //if (allSelection != null)
+            //{
+            //    IHTMLTxtRange range = allSelection.createRange() as IHTMLTxtRange;
+            //}
+
+            //if (element != null)
+            //    return element.InnerHtml;
+            //else
+            return string.Empty;
+        }
+
         //private void WHDocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         //{
         //    if (sender is WebBrowser)
