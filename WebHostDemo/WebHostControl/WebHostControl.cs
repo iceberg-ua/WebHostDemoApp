@@ -1,72 +1,59 @@
 ﻿using mshtml;
 using System;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
-using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WebHostDemo
 {
     class WebHostControl : WebBrowser
     {
-        static string _script = "";
-        static string _basePage = "";
-        static string _d3Script = "_d3Script";
-        static string _stylePath = "_styleFile";
-
-        static WebHostControl()
-        {
-            string filePath = @"file:///" + AppDomain.CurrentDomain.BaseDirectory.Replace('\\', '/');
-
-            //_basePage = File.ReadAllText("WebHostControl/BaseHTML.html");
-            //_basePage = File.ReadAllText("WebHostControl/Gears.html");
-            //_script = File.ReadAllText("WebHostControl/d3.v3.min.js");
-
-            //show Gantt diagrams chart
-            //_basePage = File.ReadAllText("WebHostControl/GanttChart.html");
-            //_basePage = _basePage.Replace(_stylePath, filePath + @"WebHostControl/style.css");
-            //_basePage = _basePage.Replace(_d3Script, filePath + @"WebHostControl/d3.v3.min.js");
-
-            //show Markdown editor
-            _basePage = File.ReadAllText("WebHostControl/MarkdownEditor.html");
-            _basePage = _basePage.Replace(_stylePath, filePath + @"WebHostControl/simplemde.min.css");
-            _basePage = _basePage.Replace(_d3Script, filePath + @"WebHostControl/simplemde.min.js");
-        }
-
         public WebHostControl()
         {
             Dock = DockStyle.Fill;
             ScriptErrorsSuppressed = true;
-            //DocumentCompleted += WHDocumentCompleted;
-            DocumentText = _basePage;
+            DocumentCompleted += WHDocumentCompleted;
         }
 
-        public WebHostControl(string html)
+        public WebHostControl(string html, string style = null, string script = null)
+            : this()
         {
+
+            DocumentText = html;
+        }
+
+        protected override void OnSizeChanged(EventArgs e)
+        {
+            base.OnSizeChanged(e);
+
 
         }
 
         private void WHDocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        { }
+        {
 
-        //protected override void OnMouseDown(MouseEventArgs e)
+        }
+
+        public void SetEditorText(string text)
+        {
+            Document.InvokeScript("setValue", new object[] { text });
+        }
+
+        public string GetEditorText()
+        {
+            var value = Document.InvokeScript("getValue");
+
+            return (value is string) ? (string)value : string.Empty;
+        }
+
         public void GetWebControlImage()
         {
-            //base.OnMouseDown(e);
-            //if (ctrl is WebBrowser)
+            try
             {
-                WebBrowser wb = this;
-                //mshtml.IHTMLDocument2 doc = (mshtml.IHTMLDocument2)wb.Document.DomDocument;
-                //mshtml.IHTMLElement body = (mshtml.IHTMLElement)doc.body;
-                //IHTMLElementRender render = (IHTMLElementRender)body;
+                var viewObject = Document.DomDocument as IViewObject;
 
-                var viewObject = wb.Document.DomDocument as IViewObject;
-
-                int width = 2130, height = 1000;
+                int width = Width * 4, height = Height * 4;
 
                 using (Bitmap bmp = new Bitmap(width, height))
                 {
@@ -103,109 +90,17 @@ namespace WebHostDemo
                         {
                             grphx.ReleaseHdc();
                         }
-
-
-
-                        //        render.DrawToDC(hdc);
-                        //        grphx.ReleaseHdc();
                     }
 
                     Random rnd = new Random();
-
                     bmp.Save($"{rnd.Next(int.MaxValue)}.jpg");
                 }
             }
-
+            catch(NullReferenceException e)
+            {
+                MessageBox.Show("Content of the control is not loaded.");
+            }
         }
-
-        public void SetEditorText(string text)
-        {
-            //var divs = Document.GetElementsByTagName("div");
-
-            //foreach (HtmlElement div in divs)
-            //{
-            //    if (div.GetAttribute("className") == "CodeMirror-code")
-            //    {
-            //        div.InnerText = text;
-            //    }
-            //}
-
-            //object data = Clipboard.GetData("Text");
-            //Clipboard.SetData("Text", text);
-
-            //IHTMLDocument2 doc = (mshtml.IHTMLDocument2)Document.DomDocument;
-            //doc.execCommand("Paste", false, null);
-
-            //Clipboard.SetData("Text", data);
-
-            Document.InvokeScript("setValue", new object[] { text });
-        }
-
-        public string GetEditorText()
-        {
-            var value = Document.InvokeScript("getValue");
-
-            return (value is string) ? (string)value : string.Empty;
-
-            //var divs = Document.GetElementsByTagName("div");
-
-            //foreach (HtmlElement div in divs)
-            //{
-            //    if(div.GetAttribute("className") == "CodeMirror-code")
-            //    {
-            //        return div.InnerText;
-            //    }
-            //}
-
-            //var element = Document.GetElementsByTagName("CodeMirror-code");
-            //mshtml.IHTMLDocument2 doc = (mshtml.IHTMLDocument2)Document.DomDocument;
-
-            //var selection = doc.selection.createRange().text;
-
-            //if (selection != null)
-            //{
-            //    IHTMLTxtRange range = selection.createRange() as IHTMLTxtRange;
-            //}
-
-            //doc.execCommand("SelectAll", false, null);
-
-            //var allSelection = doc.selection;
-
-            //if (allSelection != null)
-            //{
-            //    IHTMLTxtRange range = allSelection.createRange() as IHTMLTxtRange;
-            //}
-
-            //if (element != null)
-            //    return element.InnerHtml;
-            //else
-            return string.Empty;
-        }
-
-        //private void WHDocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
-        //{
-        //    if (sender is WebBrowser)
-        //    {
-        //        WebBrowser ctrl = sender as WebBrowser;
-        //        mshtml.IHTMLDocument2 doc = (mshtml.IHTMLDocument2)ctrl.Document.DomDocument;
-        //        mshtml.IHTMLElement body = (mshtml.IHTMLElement)doc.body;
-        //        IHTMLElementRender render = (IHTMLElementRender)body;
-
-        //        using (Bitmap bmp = new Bitmap(ctrl.ClientSize.Width, ctrl.ClientSize.Height))
-        //        {
-        //            using (Graphics grphx = Graphics.FromImage(bmp))
-        //            {
-        //                IntPtr hdc = grphx.GetHdc();
-        //                render.DrawToDC(hdc);
-        //                grphx.ReleaseHdc();
-        //            }
-
-        //            Random rnd = new Random();
-
-        //            bmp.Save($"{rnd.Next(int.MaxValue)}.jpg");
-        //        }
-        //    }
-        //}
 
         // Replacement for mshtml imported interface, Tlbimp.exe generates wrong signatures
         [ComImport, InterfaceType((short)1), Guid("3050F669-98B5-11CF-BB82-00AA00BDCE0B")]

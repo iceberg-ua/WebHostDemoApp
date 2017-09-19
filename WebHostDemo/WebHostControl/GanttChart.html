@@ -76,7 +76,6 @@
         body {
             font: 14px Helvetica Neue;
             text-rendering: optimizeLegibility;
-            margin-top: 1em;
             overflow-y: scroll;
         }
 
@@ -206,16 +205,20 @@
     </style>
     <!--<script>_d3Script</script>-->
     <script type="text/javascript" src="_d3Script"></script>
+    <!--<script type="text/javascript" src="d3.v3.min.js"></script>-->
 </head>
 <body>
-    <button type="button" onclick="addTask()">Add Task</button>
-    <button type="button" onclick="removeTask()">Remove Task</button>
-    <button type="button" onclick="changeTimeDomain('1hr')">1 HR</button>
-    <button type="button" onclick="changeTimeDomain('3hr')">3 HR</button>
-    <button type="button" onclick="changeTimeDomain('6hr')">6 HR</button>
-    <button type="button" onclick="changeTimeDomain('1day')">1 DAY</button>
-    <button type="button" onclick="changeTimeDomain('1week')">1 WEEK</button>
-    <br />
+
+    <form id="buttons" action="/" method="post">
+        <button type="button" onclick="addTask()">Add Task</button>
+        <button type="button" onclick="removeTask()">Remove Task</button>
+        <button type="button" onclick="changeTimeDomain('1hr')">1 HR</button>
+        <button type="button" onclick="changeTimeDomain('3hr')">3 HR</button>
+        <button type="button" onclick="changeTimeDomain('6hr')">6 HR</button>
+        <button type="button" onclick="changeTimeDomain('1day')">1 DAY</button>
+        <button type="button" onclick="changeTimeDomain('1week')">1 WEEK</button>
+        <br />
+    </form>
     <script>
         /**
                          * @author Dimitry Kudrayvtsev
@@ -227,18 +230,21 @@
             var FIXED_TIME_DOMAIN_MODE = "fixed";
 
             var margin = {
-                top: 20,
-                right: 40,
-                bottom: 20,
-                left: 150
+                top: 10,
+                right: 0,
+                bottom: 10,
+                left: 50
             };
             var timeDomainStart = d3.time.day.offset(new Date(), -3);
             var timeDomainEnd = d3.time.hour.offset(new Date(), +3);
             var timeDomainMode = FIT_TIME_DOMAIN_MODE;// fixed or fit
             var taskTypes = [];
             var taskStatus = [];
-            var height = document.body.clientHeight - margin.top - margin.bottom - 5;
-            var width = document.body.clientWidth - margin.right - margin.left - 5;
+
+            var formHeight = document.getElementById("buttons").clientHeight;
+
+            var height = document.body.clientHeight - margin.top - margin.bottom - formHeight - 5;
+            var width = document.body.clientWidth - margin.right - margin.left - 30;
 
             var tickFormat = "%H:%M";
 
@@ -372,6 +378,62 @@
                 return gantt;
             };
 
+            gantt.render = function (tasks) {
+
+                var formHeight = document.getElementById("buttons").clientHeight;
+
+                height = document.body.clientHeight - margin.top - margin.bottom - formHeight - 5;
+                width = document.body.clientWidth - margin.right - margin.left - 30;
+
+                initTimeDomain();
+                initAxis();
+
+                var svg = d3.select("svg");
+                svg
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom);
+
+                var chart = svg.select(".gantt-chart");
+
+                chart
+                    .attr("width", width)
+                    .attr("height", height - formHeight);
+
+                svg.select(".x")
+                    .attr("transform", "translate(0, " + (height - margin.top - margin.bottom) + ")")
+                    .call(xAxis);
+
+                svg.select(".y").call(yAxis);
+
+                /*var svg = d3.select("svg");
+
+                var ganttChartGroup = svg.select(".gantt-chart");
+                var rect = ganttChartGroup.selectAll("rect").data(tasks, keyFunction);
+
+                initTimeDomain();
+                initAxis();
+
+                svg = d3.select("body")
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
+                    .attr("class", "gantt-chart")
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
+                    .attr("transform", "translate(" + margin.left + ", " + margin.top + ")");
+
+                svg.selectAll(".chart")
+                    .append("rect")
+                    .attr("rx", 5)
+                    .attr("ry", 5)
+                    .attr("y", 0)
+                    .attr("height", function (d) { return y.rangeBand(); })
+                    .attr("width", function (d) {
+                        return (x(d.endDate) - x(d.startDate));
+                    });*/
+
+                gantt.redraw(tasks);
+            };
+
             gantt.margin = function (value) {
                 if (!arguments.length)
                     return margin;
@@ -437,7 +499,9 @@
 
 
             return gantt;
-        };</script>
+        };
+
+    </script>
     <script>
         var tasks = [
             { "startDate": new Date("Sun Dec 09 01:36:45 EST 2012"), "endDate": new Date("Sun Dec 09 02:36:45 EST 2012"), "taskName": "E Job", "status": "RUNNING" }];
@@ -463,13 +527,14 @@
         var format = "%H:%M";
         var timeDomainString = "1day";
 
-        var gantt = d3.gantt().taskTypes(taskNames).taskStatus(taskStatus).tickFormat(format).height(450).width(800);
+        var gantt = d3.gantt().taskTypes(taskNames).taskStatus(taskStatus).tickFormat(format);
 
 
         gantt.timeDomainMode("fixed");
         changeTimeDomain(timeDomainString);
 
         gantt(tasks);
+        window.addEventListener("resize", render);
 
         function changeTimeDomain(timeDomainString) {
             this.timeDomainString = timeDomainString;
@@ -503,6 +568,11 @@
             }
             gantt.tickFormat(format);
             gantt.redraw(tasks);
+        }
+
+        function render()
+        {
+            gantt.render(tasks);
         }
 
         function getEndDate() {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,14 +13,39 @@ namespace WebHostDemo
 {
     public partial class WebHostDemoForm : Form
     {
-        WebHostControl _webHostCtrl = new WebHostControl();
-
         public WebHostDemoForm()
         {
+            LoadWebControl();
             InitializeComponent();
+        }
+
+        static string _script = "";
+        static string _basePage = "";
+        static string _d3Script = "_d3Script";
+        static string _stylePath = "_styleFile";
+        WebHostControl _webHostCtrl;
+
+        private void LoadWebControl()
+        {
+            string filePath = @"file:///" + AppDomain.CurrentDomain.BaseDirectory.Replace('\\', '/');
+
+            //_basePage = File.ReadAllText("WebHostControl/BaseHTML.html");
+            //_basePage = File.ReadAllText("WebHostControl/Gears.html");
+            //_script = File.ReadAllText("WebHostControl/d3.v3.min.js");
+
+            //show Gantt diagrams chart
+            _basePage = File.ReadAllText("WebHostControl/GanttChart.html");
+            _basePage = _basePage.Replace(_stylePath, filePath + @"WebHostControl/style.css");
+            _basePage = _basePage.Replace(_d3Script, filePath + @"WebHostControl/d3.v3.min.js");
+
+            //show Markdown editor
+            //_basePage = File.ReadAllText("WebHostControl/MarkdownEditor.html");
+            //_basePage = _basePage.Replace(_stylePath, filePath + @"WebHostControl/simplemde.min.css");
+            //_basePage = _basePage.Replace(_d3Script, filePath + @"WebHostControl/simplemde.min.js
+
+            _webHostCtrl = new WebHostControl(_basePage);
 
             Controls.Add(_webHostCtrl);
-            _webHostCtrl.Visible = true;
         }
 
         private void button1_Click(object sender, EventArgs e)
