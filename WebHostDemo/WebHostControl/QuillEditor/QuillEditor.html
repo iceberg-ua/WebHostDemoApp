@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="_styleFile" />
+    <style>
+        .standalone-container {
+            margin: 50px auto;
+            max-width: 720px;
+        }
+
+        #snow-container {
+            height: 350px;
+        }
+    </style>
+    <!--<script type="text/javascript" src="_d3Script"></script>-->
+</head>
+<body>
+    <div class="standalone-container">
+        <div id="snow-container"></div>
+    </div>
+    <!--<script>
+        window.onerror = function (message, url, lineNumber) {
+            alert(message + ";" + url + ";" + lineNumber);
+        }
+    </script>-->
+    <script type="text/javascript">
+        var quill = new Quill('#snow-container', {
+            placeholder: 'Compose an epic...',
+            theme: 'snow'
+        });
+    </script>
+    <script type="text/javascript" src="__d3Script"></script>
+</body>
+</html>

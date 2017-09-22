@@ -12,21 +12,18 @@ namespace WebHostDemo
         public WebHostControl()
         {
             Dock = DockStyle.Fill;
-            ScriptErrorsSuppressed = true;
+            //ScriptErrorsSuppressed = true;
             DocumentCompleted += WHDocumentCompleted;
         }
 
         public WebHostControl(string html, string style = null, string script = null)
             : this()
         {
-
             DocumentText = html;
         }
 
-        protected override void OnSizeChanged(EventArgs e)
+        public void ScripErrorHanfling(string message, string url, string linenumber)
         {
-            base.OnSizeChanged(e);
-
 
         }
 
@@ -45,6 +42,48 @@ namespace WebHostDemo
             var value = Document.InvokeScript("getValue");
 
             return (value is string) ? (string)value : string.Empty;
+        }
+
+        private bool FindString(HtmlElement elem, string str)
+        {
+            bool strFound = false;
+            IHTMLTxtRange rng = null;
+
+            try
+            {
+                if (rng != null)
+                {
+                    rng.collapse(false);
+                    strFound = rng.findText(str, 1000000000, 0);
+                    if (strFound)
+                    {
+                        rng.select();
+                        rng.scrollIntoView(true);
+                    }
+                }
+                if (rng == null)
+                {
+                    IHTMLDocument2 doc =
+                           elem.Document.DomDocument as IHTMLDocument2;
+
+                    IHTMLBodyElement body = doc.body as IHTMLBodyElement;
+
+                    rng = body.createTextRange();
+                    rng.moveToElementText(elem.DomElement as IHTMLElement);
+                    strFound = rng.findText(str, 1000000000, 0);
+                    if (strFound)
+                    {
+                        rng.select();
+                        rng.scrollIntoView(true);
+                    }
+
+                }
+            }
+            catch
+            {
+
+            }
+            return strFound;
         }
 
         public void GetWebControlImage()

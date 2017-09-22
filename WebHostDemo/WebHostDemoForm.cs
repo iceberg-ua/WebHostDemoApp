@@ -33,17 +33,25 @@ namespace WebHostDemo
             //_basePage = File.ReadAllText("WebHostControl/Gears.html");
             //_script = File.ReadAllText("WebHostControl/d3.v3.min.js");
 
-            //show Gantt diagrams chart
-            _basePage = File.ReadAllText("WebHostControl/GanttChart.html");
-            _basePage = _basePage.Replace(_stylePath, filePath + @"WebHostControl/style.css");
-            _basePage = _basePage.Replace(_d3Script, filePath + @"WebHostControl/d3.v3.min.js");
+            ////show Gantt diagrams chart
+            //_basePage = File.ReadAllText("WebHostControl/GanttChart.html");
+            //_basePage = _basePage.Replace(_stylePath, filePath + @"WebHostControl/style.css");
+            //_basePage = _basePage.Replace(_d3Script, filePath + @"WebHostControl/d3.v3.min.js");
 
             //show Markdown editor
             //_basePage = File.ReadAllText("WebHostControl/MarkdownEditor.html");
             //_basePage = _basePage.Replace(_stylePath, filePath + @"WebHostControl/simplemde.min.css");
-            //_basePage = _basePage.Replace(_d3Script, filePath + @"WebHostControl/simplemde.min.js
+            //_basePage = _basePage.Replace(_d3Script, filePath + @"WebHostControl/simplemde.min.js");
+
+            //show Quill editor
+            _basePage = File.ReadAllText("WebHostControl/QuillEditor/QuillEditor.html");
+            _basePage = _basePage.Replace(_stylePath, filePath + @"WebHostControl/QuillEditor/quill.snow.css");
+            _basePage = _basePage.Replace("__d3Script", filePath + @"WebHostControl/QuillEditor/quill.js");
+            _basePage = _basePage.Replace(_d3Script, filePath + @"WebHostControl/QuillEditor/quill.min.js");
 
             _webHostCtrl = new WebHostControl(_basePage);
+            //_webHostCtrl = new WebHostControl();
+            //_webHostCtrl.Navigate("https://quilljs.com/playground/#quill-playground");
 
             Controls.Add(_webHostCtrl);
         }
