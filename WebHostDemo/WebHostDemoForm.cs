@@ -44,10 +44,15 @@ namespace WebHostDemo
             //_basePage = _basePage.Replace(_d3Script, filePath + @"WebHostControl/simplemde.min.js");
 
             //show Quill editor
-            _basePage = File.ReadAllText("WebHostControl/QuillEditor/QuillEditor.html");
-            _basePage = _basePage.Replace(_stylePath, filePath + @"WebHostControl/QuillEditor/quill.snow.css");
-            _basePage = _basePage.Replace("__d3Script", filePath + @"WebHostControl/QuillEditor/quill.js");
-            _basePage = _basePage.Replace(_d3Script, filePath + @"WebHostControl/QuillEditor/quill.min.js");
+            //_basePage = File.ReadAllText("WebHostControl/QuillEditor/QuillEditor.html");
+            //_basePage = _basePage.Replace(_stylePath, filePath + @"WebHostControl/QuillEditor/quill.snow.css");
+            //_basePage = _basePage.Replace("__d3Script", filePath + @"WebHostControl/QuillEditor/quill.js");
+            //_basePage = _basePage.Replace(_d3Script, filePath + @"WebHostControl/QuillEditor/quill.min.js");
+
+            //show Pen editor
+            _basePage = File.ReadAllText("WebHostControl/PenEditor/PenEditor.html");
+            _basePage = _basePage.Replace(_stylePath, filePath + @"WebHostControl/PenEditor/pen.css");
+            _basePage = _basePage.Replace(_d3Script, filePath + @"WebHostControl/PenEditor/pen.js");
 
             _webHostCtrl = new WebHostControl(_basePage);
             //_webHostCtrl = new WebHostControl();
