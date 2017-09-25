@@ -134,7 +134,7 @@
   function commandBlock(ctx, name) {
     var list = effectNode(ctx, getNode(ctx), true);
     if (list.indexOf(name) !== -1) name = 'p';
-    return commandOverall(ctx, 'formatblock', name);
+    return commandOverall(ctx, 'FormatBlock', '<' + name + '>');
   }
 
   function commandWrap(ctx, tag, value) {
