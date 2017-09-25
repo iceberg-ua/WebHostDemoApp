@@ -116,7 +116,7 @@
     <Content Include="WebHostControl\d3.v4.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WebHostControl\SimpleMDE\MarkdownEditor.html">
+    <Content Include="WebHostControl\MarkdownEditor.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="WebHostControl\PenEditor\font\fontello.svg">
@@ -146,10 +146,10 @@
     <Content Include="WebHostControl\QuillEditor\QuillEditor.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WebHostControl\SimpleMDE\simplemde.min.css">
+    <Content Include="WebHostControl\simplemde.min.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WebHostControl\SimpleMDE\simplemde.min.js">
+    <Content Include="WebHostControl\simplemde.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="WebHostControl\style.css">

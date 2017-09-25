@@ -29,14 +29,7 @@ namespace WebHostDemo
 
         private void WHDocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
-            //var webBrowser = sender as WebBrowser;
-            //if (webBrowser == null)
-            //{
-            //    return;
-            //}
-            //var doc = (IHTMLDocument2)webBrowser.Document.DomDocument;
 
-            //doc.charset = "utf-8";
         }
 
         public void SetEditorText(string text)
@@ -142,7 +135,7 @@ namespace WebHostDemo
                     bmp.Save($"{rnd.Next(int.MaxValue)}.jpg");
                 }
             }
-            catch(NullReferenceException)
+            catch(NullReferenceException e)
             {
                 MessageBox.Show("Content of the control is not loaded.");
             }
