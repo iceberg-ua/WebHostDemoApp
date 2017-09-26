@@ -34,25 +34,29 @@ namespace WebHostDemo
             //_script = File.ReadAllText("WebHostControl/d3.v3.min.js");
 
             ////show Gantt diagrams chart
-            //_basePage = File.ReadAllText("WebHostControl/GanttChart.html");
-            //_basePage = _basePage.Replace(_stylePath, filePath + @"WebHostControl/style.css");
+            //_basePage = File.ReadAllText("WebHostControl/GanttChart/GanttChart.html");
+            //_basePage = _basePage.Replace(_stylePath, filePath + @"WebHostControl/GanttChart/style.css");
             //_basePage = _basePage.Replace(_d3Script, filePath + @"WebHostControl/d3.v3.min.js");
 
             //show Markdown editor
-            //_basePage = File.ReadAllText("WebHostControl/MarkdownEditor.html");
-            //_basePage = _basePage.Replace(_stylePath, filePath + @"WebHostControl/simplemde.min.css");
-            //_basePage = _basePage.Replace(_d3Script, filePath + @"WebHostControl/simplemde.min.js");
+            //_basePage = File.ReadAllText("WebHostControl/SimpleMDE/MarkdownEditor.html");
+            //_basePage = _basePage.Replace(_stylePath, filePath + @"WebHostControl/SimpleMDE/simplemde.min.css");
+            //_basePage = _basePage.Replace(_d3Script, filePath + @"WebHostControl/SimpleMDE/simplemde.min.js");
 
             //show Quill editor
             //_basePage = File.ReadAllText("WebHostControl/QuillEditor/QuillEditor.html");
             //_basePage = _basePage.Replace(_stylePath, filePath + @"WebHostControl/QuillEditor/quill.snow.css");
-            //_basePage = _basePage.Replace("__d3Script", filePath + @"WebHostControl/QuillEditor/quill.js");
+            //_basePage = _basePage.Replace("_d3Script", filePath + @"WebHostControl/QuillEditor/quill.js");
             //_basePage = _basePage.Replace(_d3Script, filePath + @"WebHostControl/QuillEditor/quill.min.js");
 
             //show Pen editor
-            _basePage = File.ReadAllText("WebHostControl/PenEditor/PenEditor.html");
-            _basePage = _basePage.Replace(_stylePath, filePath + @"WebHostControl/PenEditor/pen.css");
-            _basePage = _basePage.Replace(_d3Script, filePath + @"WebHostControl/PenEditor/pen.js");
+            //_basePage = File.ReadAllText("WebHostControl/PenEditor/PenEditor.html");
+            //_basePage = _basePage.Replace(_stylePath, filePath + @"WebHostControl/PenEditor/pen.css");
+            //_basePage = _basePage.Replace(_d3Script, filePath + @"WebHostControl/PenEditor/pen.js");
+
+            //MediumEditor
+            _basePage = File.ReadAllText("WebHostControl/MediumEditor/MediumEditor.html");
+            _basePage = _basePage.Replace("_sourcesPath", filePath + @"WebHostControl/MediumEditor");
 
             _webHostCtrl = new WebHostControl(_basePage);
             //_webHostCtrl = new WebHostControl();

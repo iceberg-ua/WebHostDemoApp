@@ -5,15 +5,22 @@
  * Copyright (c) 2013, salesforce.com
  */
 (function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define([], factory);
-	else if(typeof exports === 'object')
-		exports["Quill"] = factory();
-	else
-		root["Quill"] = factory();
-})(this, function() {
+    //if (typeof exports === 'object' && typeof module === 'object') {
+    //module.exports = factory();
+    //    alert("1");
+    //}
+    //else if (typeof define === 'function' && define.amd) {
+    //define([], factory);
+    //    alert("2");
+    //}
+    //else if (typeof exports === 'object') {
+    //exports["Quill"] = factory();
+    //    alert("3");
+    //}
+    //else
+    root["Quill"] = factory();
+})
+(this, function () {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
