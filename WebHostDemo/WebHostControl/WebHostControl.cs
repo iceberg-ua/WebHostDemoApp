@@ -29,7 +29,13 @@ namespace WebHostDemo
 
         private void WHDocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
+            Document.Body.MouseLeave += Document_MouseLeave;
+            //Document.MouseLeave += Document_MouseLeave;
+        }
 
+        private void Document_MouseLeave(object sender, HtmlElementEventArgs e)
+        {
+            Hide();
         }
 
         public void SetEditorText(string text)
@@ -86,59 +92,63 @@ namespace WebHostDemo
             return strFound;
         }
 
-        public void GetWebControlImage()
+        public Bitmap GetWebControlImage()
         {
+            //int width = Width * 4, height = Height * 4;
+            //int width = Width, height = Height;
+            if (Document.Body == null)
+                return null;
+
+            int width = Document.Body.ScrollRectangle.Width, height = Document.Body.ScrollRectangle.Height;
+            Bitmap bmp = new Bitmap(width, height);
+
             try
             {
                 var viewObject = Document.DomDocument as IViewObject;
 
-                int width = Width * 4, height = Height * 4;
-
-                using (Bitmap bmp = new Bitmap(width, height))
+                using (Graphics grphx = Graphics.FromImage(bmp))
                 {
-                    using (Graphics grphx = Graphics.FromImage(bmp))
+                    IntPtr hdc = grphx.GetHdc();
+
+                    var targetRect = new tagRECT();
+                    targetRect.left = 0;
+                    targetRect.top = 0;
+                    targetRect.right = width;
+                    targetRect.bottom = height;
+
+                    var sourceRect = new tagRECT();
+                    sourceRect.left = 0;
+                    sourceRect.top = 0;
+                    sourceRect.right = width;
+                    sourceRect.bottom = height;
+
+                    try
                     {
-                        IntPtr hdc = grphx.GetHdc();
-
-                        var targetRect = new tagRECT();
-                        targetRect.left = 0;
-                        targetRect.top = 0;
-                        targetRect.right = width;
-                        targetRect.bottom = height;
-
-                        var sourceRect = new tagRECT();
-                        sourceRect.left = 0;
-                        sourceRect.top = 0;
-                        sourceRect.right = width;
-                        sourceRect.bottom = height;
-
-                        try
-                        {
-                            int hr = viewObject.Draw(1 /*DVASPECT_CONTENT*/,
-                              (int)-1,
-                                IntPtr.Zero,
-                                IntPtr.Zero,
-                                IntPtr.Zero,
-                                hdc,
-                                ref targetRect,
-                                ref sourceRect,
-                                IntPtr.Zero,
-                                (uint)0);
-                        }
-                        finally
-                        {
-                            grphx.ReleaseHdc();
-                        }
+                        int hr = viewObject.Draw(1 /*DVASPECT_CONTENT*/,
+                          (int)-1,
+                            IntPtr.Zero,
+                            IntPtr.Zero,
+                            IntPtr.Zero,
+                            hdc,
+                            ref targetRect,
+                            ref sourceRect,
+                            IntPtr.Zero,
+                            (uint)0);
                     }
-
-                    Random rnd = new Random();
-                    bmp.Save($"{rnd.Next(int.MaxValue)}.jpg");
+                    finally
+                    {
+                        grphx.ReleaseHdc();
+                    }
                 }
+                //Random rnd = new Random();
+                //bmp.Save($"{rnd.Next(int.MaxValue)}.jpg");
             }
-            catch(NullReferenceException e)
+            catch (NullReferenceException e)
             {
                 MessageBox.Show("Content of the control is not loaded.");
             }
+
+            return bmp;
         }
 
         // Replacement for mshtml imported interface, Tlbimp.exe generates wrong signatures
