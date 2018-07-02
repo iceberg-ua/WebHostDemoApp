@@ -7,7 +7,7 @@
     <ProjectGuid>{1BE490FA-3F9B-45DD-B9D4-EFBBEB100FBF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>WebHostDemo</RootNamespace>
-    <AssemblyName>HelpPane</AssemblyName>
+    <AssemblyName>HelpPane_</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -49,6 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="WebHostControl\WebChartControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WebHostControl\WebEditorControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="WebHostDemoForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -100,6 +106,7 @@
     <Content Include="WebHostControl\d3.v3.min.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="WebHostControl\globalEditorAPI.js" />
     <Content Include="WebHostControl\GanttChart.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -124,6 +131,9 @@
     <Content Include="WebHostControl\MediumEditor\beagle.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="WebHostControl\MediumEditor\marked.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="WebHostControl\MediumEditor\medium-editor.min.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -131,6 +141,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="WebHostControl\MediumEditor\MediumEditor.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WebHostControl\MediumEditor\turndown.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WebHostControl\MediumEditor\upndown.bundle.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WebHostControl\MediumEditor\webEditorAPI.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="WebHostControl\SimpleMDE\MarkdownEditor.html">

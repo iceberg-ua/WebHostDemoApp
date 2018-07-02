@@ -1,37 +1,22 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8"> 
-    <!--<title>MediumEditor | demo</title>-->
-    <!--<link rel="stylesheet" href="css/demo.css">-->
-    <!--<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css" rel="stylesheet">-->
+    <meta http-equiv="X-UA-Compatible" content="IE=10,9,8,7">
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="_sourcesPath/medium-editor.min.css">
     <link rel="stylesheet" href="_sourcesPath/beagle.css" id="medium-editor-theme">
 </head>
 <body>
-    <!--<div id="version"></div>
-    <div class="top-bar">
-        Theme:
-        <select id="sel-themes">
-            <option value="themes/default" selected>default</option>
-            <option value="themes/roman">roman</option>
-            <option value="themes/mani">mani</option>
-            <option value="themes/flat">flat</option>
-            <option value="themes/bootstrap">bootstrap</option>
-            <option value="themes/tim">tim</option>
-            <option value="themes/beagle">beagle</option>
-        </select>
-    </div>-->
     <div id="container">
         <div class="editable">
-            <h1>Header</h1>
-            <h2>Secondary header</h2>
+            <h1>He<span>a</span>der</h1>
+            <h2>Se<span class="active">cond</span>ary header</h2>
             <h3>Chapter header</h3>
             <p><b>Termin - </b>description.</p>
             <ol>
                 <li>point1</li>
                 <li>point2</li>
-                <li>point3</li>
+                <li>po<span>int3</span></li>
                 <li>point4</li>
             </ol>
             <p><i><u>Termin </u></i>- description</p>
@@ -42,14 +27,12 @@
             </ul>
         </div>
     </div>
+    <script src="_sourcesPath/webEditorAPI.js"></script>
     <script src="_sourcesPath/medium-editor.min.js"></script>
+    <script src="_sourcesPath/marked.min.js"></script>
+    <script src="_sourcesPath/turndown.js"></script>
     <script>
-        var editor = new MediumEditor('.editable', { toolbar: { buttons: ['h1', 'h2', 'h3', 'bold', 'italic', 'underline', 'orderedlist', 'unorderedlist'] } });
-        //    cssLink = document.getElementById('medium-editor-theme');
-
-        //document.getElementById('sel-themes').addEventListener('change', function () {
-        //    cssLink.href = 'bower_components/medium-editor/dist/css/' + this.value + '.css';
-        //});
+        editor = new MediumEditor('.editable', { toolbar: { buttons: ['h1', 'h2', 'h3', 'bold', 'italic', 'underline', 'orderedlist', 'unorderedlist'] } });
     </script>
 </body>
 </html>

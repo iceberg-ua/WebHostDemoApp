@@ -58,10 +58,11 @@ namespace WebHostDemo
             //_basePage = _basePage.Replace(_d3Script, filePath + @"WebHostControl/PenEditor/pen.js");
 
             //MediumEditor
-            _basePage = File.ReadAllText("WebHostControl/MediumEditor/MediumEditor.html");
-            _basePage = _basePage.Replace("_sourcesPath", filePath + @"WebHostControl/MediumEditor");
+            //_basePage = File.ReadAllText("WebHostControl/MediumEditor/MediumEditor.html");
+            //_basePage = _basePage.Replace("_sourcesPath", filePath + @"WebHostControl/MediumEditor");
 
-            _webHostCtrl = new WebHostControl(_basePage);
+            _webHostCtrl = WebEditorControl.CreateWebEditorControl();
+            _webHostCtrl.SetFont("Roboto", "10px");
             //_webHostCtrl = new WebHostControl();
             //_webHostCtrl.Navigate("https://quilljs.com/playground/#quill-playground");
 

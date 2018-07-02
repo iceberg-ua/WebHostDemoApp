@@ -7,8 +7,10 @@ using System.Windows.Forms;
 
 namespace WebHostDemo
 {
-    class WebHostControl : WebBrowser
+    public class WebHostControl : WebBrowser
     {
+        protected static string _appPath = @"file:///" + AppDomain.CurrentDomain.BaseDirectory.Replace('\\', '/');
+
         public WebHostControl()
         {
             Dock = DockStyle.Fill;
@@ -29,25 +31,30 @@ namespace WebHostDemo
 
         private void WHDocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
-            Document.Body.MouseLeave += Document_MouseLeave;
+            //Document.Body.MouseLeave += Document_MouseLeave;
             //Document.MouseLeave += Document_MouseLeave;
         }
 
-        private void Document_MouseLeave(object sender, HtmlElementEventArgs e)
-        {
-            Hide();
-        }
+        //private void Document_MouseLeave(object sender, HtmlElementEventArgs e)
+        //{
+        //    Hide();
+        //}
 
-        public void SetEditorText(string text)
+        public virtual void SetEditorText(string text)
         {
             Document.InvokeScript("setValue", new object[] { text });
         }
 
-        public string GetEditorText()
+        public virtual string GetEditorText()
         {
             var value = Document.InvokeScript("getValue");
 
             return (value is string) ? (string)value : string.Empty;
+        }
+
+        public virtual void SetFont(string name, string size)
+        {
+            Document.InvokeScript("setFont", new object[] { name, size });
         }
 
         private bool FindString(HtmlElement elem, string str)
@@ -143,7 +150,7 @@ namespace WebHostDemo
                 //Random rnd = new Random();
                 //bmp.Save($"{rnd.Next(int.MaxValue)}.jpg");
             }
-            catch (NullReferenceException e)
+            catch (NullReferenceException)
             {
                 MessageBox.Show("Content of the control is not loaded.");
             }
